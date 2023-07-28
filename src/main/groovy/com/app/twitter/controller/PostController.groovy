@@ -29,15 +29,13 @@ class PostController {
     }
 
     @PostMapping(POST_PATH)
-    ResponseEntity createPost(@RequestBody Post post) {
+    Post createPost(@RequestBody Post post) {
         postService.createPost(post)
-        new ResponseEntity<>(HttpStatus.CREATED)
     }
 
     @PutMapping(POST_PATH_ID)
-    ResponseEntity updatePost(@PathVariable String id, @RequestBody Post updatedPost) {
+    Post updatePost(@PathVariable String id, @RequestBody Post updatedPost) {
         postService.updatePost(id, updatedPost)
-        new ResponseEntity<>(HttpStatus.OK)
     }
 
     @DeleteMapping(POST_PATH_ID)

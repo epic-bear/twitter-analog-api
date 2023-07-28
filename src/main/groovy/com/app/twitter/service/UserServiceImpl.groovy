@@ -41,7 +41,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    void updateUser(String id, User updatedUser) {
+    User updateUser(String id, User updatedUser) {
         User user = getUserById(id)
         user.username = updatedUser.username ?: user.username
         user.password = updatedUser.password ?: user.password
@@ -83,7 +83,7 @@ class UserServiceImpl implements UserService {
     UserDTO getUserFeed(String userId) {
         User user = getUserById(userId)
         List<FeedDTO> feed = user.getPosts().collect { postId ->
-           fetchPostData(postId)
+            fetchPostData(postId)
         }
         user.getSubscriptions().each { subscribedUserId ->
             User subscribedUser = getUserById(subscribedUserId)

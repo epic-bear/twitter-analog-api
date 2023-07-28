@@ -8,7 +8,7 @@ interface CommentService {
 
     Comment getCommentById(String id);
 
-    void updateComment(String id, Comment updatedComment);
+    Comment updateComment(String id, Comment updatedComment);
 
     void deleteCommentById(String id);
 

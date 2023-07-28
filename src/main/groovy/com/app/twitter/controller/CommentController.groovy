@@ -23,15 +23,13 @@ class CommentController {
     }
 
     @PostMapping(COMMENT_PATH)
-    ResponseEntity createComment(@RequestBody Comment comment) {
+    Comment createComment(@RequestBody Comment comment) {
         commentService.createComment(comment)
-        new ResponseEntity<>(HttpStatus.CREATED)
     }
 
     @PutMapping(COMMENT_PATH_ID)
-    ResponseEntity updateComment(@PathVariable String id, @RequestBody Comment updatedComment) {
+    Comment updateComment(@PathVariable String id, @RequestBody Comment updatedComment) {
         commentService.updateComment(id, updatedComment)
-        new ResponseEntity<>(HttpStatus.OK)
     }
 
     @DeleteMapping(COMMENT_PATH_ID)

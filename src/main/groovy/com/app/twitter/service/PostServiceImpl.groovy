@@ -39,7 +39,7 @@ class PostServiceImpl implements PostService {
     }
 
     @Override
-    void updatePost(String id, Post updatedPost) {
+    Post updatePost(String id, Post updatedPost) {
         Post post = getPostById(id)
         post.content = updatedPost.content ?: post.content
         post.comments = updatedPost.comments ?: post.comments
@@ -69,9 +69,9 @@ class PostServiceImpl implements PostService {
 
     @Override
     void addComment(Comment comment) {
-       Post post = getPostById(comment.postId)
-       post.comments.add(comment.id)
-       updatePost(post.id, post)
+        Post post = getPostById(comment.postId)
+        post.comments.add(comment.id)
+        updatePost(post.id, post)
     }
 
     @Override

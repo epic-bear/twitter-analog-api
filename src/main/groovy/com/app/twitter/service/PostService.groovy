@@ -9,7 +9,7 @@ interface PostService {
 
     Post getPostById(String id);
 
-    void updatePost(String id, Post updatedPost);
+    Post updatePost(String id, Post updatedPost);
 
     void deletePostById(String id);
 

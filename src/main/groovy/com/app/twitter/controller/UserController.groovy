@@ -30,27 +30,23 @@ class UserController {
     }
 
     @PostMapping(USER_PATH)
-    ResponseEntity createUser(@RequestBody User user) {
+    User createUser(@RequestBody User user) {
         userService.createUser(user)
-        new ResponseEntity(HttpStatus.CREATED)
     }
 
     @PutMapping(USER_PATH_ID)
-    ResponseEntity updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+    User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         userService.updateUser(id, updatedUser)
-        new ResponseEntity(HttpStatus.OK)
     }
 
     @DeleteMapping(USER_PATH_ID)
     ResponseEntity deleteUserById(@PathVariable String id) {
         userService.deleteUserById(id)
-        new ResponseEntity(HttpStatus.OK)
     }
 
     @PostMapping(USER_PATH_SUBSCRIPTION)
     ResponseEntity toggleSubscription(@PathVariable String id, @PathVariable String targetUserId) {
             userService.toggleSubscription(id, targetUserId)
-            new ResponseEntity(HttpStatus.OK)
     }
 
     @GetMapping(USER_PATH_FEED)

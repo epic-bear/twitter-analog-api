@@ -35,7 +35,7 @@ class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    void updateComment(String id, Comment updatedComment) {
+    Comment updateComment(String id, Comment updatedComment) {
         Comment comment = getCommentById(id)
         comment.content = updatedComment.content ?: comment.content
         commentRepository.save(updatedComment)

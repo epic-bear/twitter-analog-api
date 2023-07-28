@@ -10,7 +10,7 @@ interface UserService {
 
     User getUserById(String id);
 
-    void updateUser(String id, User updatedUser);
+    User updateUser(String id, User updatedUser);
 
     void deleteUserById(String id);
 
