@@ -42,12 +42,14 @@ class UserController {
     }
 
     @PutMapping(USER_PATH_ID)
-    User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+    ResponseEntity updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         userService.updateUser(id, updatedUser)
+        new ResponseEntity(HttpStatus.OK)
     }
 
     @DeleteMapping(USER_PATH_ID)
-    void deleteUserById(@PathVariable String id) {
+    ResponseEntity deleteUserById(@PathVariable String id) {
         userService.deleteUserById(id)
+        new ResponseEntity(HttpStatus.OK)
     }
 }

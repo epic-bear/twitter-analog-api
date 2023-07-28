@@ -29,7 +29,7 @@ class UserServiceImpl implements UserService {
         if (optionalUser.isPresent()) {
             optionalUser.get()
         } else {
-            throw new RuntimeException("User not found")
+            throw new Exception("User not found")
         }
     }
 
