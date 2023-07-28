@@ -18,7 +18,7 @@ class User {
     private List<String> likedPosts = []
 
     String getId() {
-        return id
+        id
     }
 
     void setId(String id) {
@@ -26,7 +26,7 @@ class User {
     }
 
     String getPassword() {
-        return password
+        password
     }
 
     void setPassword(String password) {
@@ -34,7 +34,7 @@ class User {
     }
 
     String getUsername() {
-        return username
+        username
     }
 
     void setUsername(String username) {
@@ -42,7 +42,7 @@ class User {
     }
 
     List<String> getSubscriptions() {
-        return subscriptions
+        subscriptions
     }
 
     void setSubscriptions(List<String> subscriptions) {
@@ -50,7 +50,7 @@ class User {
     }
 
     List<String> getSubscribers() {
-        return subscribers
+        subscribers
     }
 
     void setSubscribers(List<String> subscribers) {

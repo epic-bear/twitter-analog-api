@@ -5,7 +5,7 @@ class UserDTO {
     private List<FeedDTO> feed = []
 
     String getOwnerId() {
-        return ownerId
+        ownerId
     }
 
     void setOwnerId(String ownerId) {
@@ -13,7 +13,7 @@ class UserDTO {
     }
 
     List<FeedDTO> getFeed() {
-        return feed
+        feed
     }
 
     void setFeed(List<FeedDTO> feed) {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository
-    private PostService postService
+    private final PostService postService
 
     @Autowired
     CommentServiceImpl(CommentRepository commentRepository, @Lazy PostService postService) {

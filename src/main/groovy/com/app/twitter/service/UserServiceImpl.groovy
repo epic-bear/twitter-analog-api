@@ -12,17 +12,13 @@ import org.springframework.stereotype.Service
 @Service
 class UserServiceImpl implements UserService {
     private final UserRepository userRepository
-    private PostService postService
+    private final PostService postService
     private final CommentService commentService
 
     @Autowired
-    UserServiceImpl(UserRepository userRepository, CommentService commentService) {
+    UserServiceImpl(UserRepository userRepository, CommentService commentService, PostService postService) {
         this.userRepository = userRepository
         this.commentService = commentService
-    }
-
-    @Autowired
-    void setPostService(PostService postService) {
         this.postService = postService
     }
 
@@ -42,11 +38,6 @@ class UserServiceImpl implements UserService {
         } else {
             throw new Exception('User not found')
         }
-    }
-
-    @Override
-    List<User> getAllUsers() {
-        userRepository.findAll()
     }
 
     @Override
@@ -88,8 +79,6 @@ class UserServiceImpl implements UserService {
         updateUser(user.id, user)
     }
 
-
-
     @Override
     UserDTO getUserFeed(String userId) {
         User user = getUserById(userId)
@@ -117,5 +106,4 @@ class UserServiceImpl implements UserService {
                 usersWhoLiked: usersWhoLiked
         )
     }
-
 }

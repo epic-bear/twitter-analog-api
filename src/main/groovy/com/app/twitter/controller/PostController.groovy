@@ -34,11 +34,6 @@ class PostController {
         new ResponseEntity<>(HttpStatus.CREATED)
     }
 
-    @GetMapping(POST_PATH_ID)
-    Post getPostById(@PathVariable String id) {
-        postService.getPostById(id)
-    }
-
     @PutMapping(POST_PATH_ID)
     ResponseEntity updatePost(@PathVariable String id, @RequestBody Post updatedPost) {
         postService.updatePost(id, updatedPost)

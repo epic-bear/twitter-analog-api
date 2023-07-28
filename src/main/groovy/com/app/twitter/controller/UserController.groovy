@@ -35,16 +35,6 @@ class UserController {
         new ResponseEntity(HttpStatus.CREATED)
     }
 
-    @GetMapping(USER_PATH_ID)
-    User getUserById(@PathVariable String id) {
-        userService.getUserById(id)
-    }
-
-    @GetMapping(USER_PATH)
-    List<User> getAllUsers() {
-        userService.getAllUsers()
-    }
-
     @PutMapping(USER_PATH_ID)
     ResponseEntity updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         userService.updateUser(id, updatedUser)

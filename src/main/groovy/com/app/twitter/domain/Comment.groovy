@@ -36,7 +36,7 @@ class Comment {
     }
 
     String getPostId() {
-        return postId
+        postId
     }
 
     void setPostId(String postId) {

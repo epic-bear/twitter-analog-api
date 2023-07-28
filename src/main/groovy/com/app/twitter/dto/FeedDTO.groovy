@@ -10,7 +10,7 @@ class FeedDTO {
     private List<String> usersWhoLiked
 
     String getPostId() {
-        return postId
+        postId
     }
 
     void setPostId(String postId) {
@@ -18,7 +18,7 @@ class FeedDTO {
     }
 
     String getContent() {
-        return content
+        content
     }
 
     void setContent(String content) {
@@ -26,7 +26,7 @@ class FeedDTO {
     }
 
     String getAuthorId() {
-        return authorId
+        authorId
     }
 
     void setAuthorId(String authorId) {
@@ -34,7 +34,7 @@ class FeedDTO {
     }
 
     List<Comment> getComments() {
-        return comments
+        comments
     }
 
     void setComments(List<Comment> comments) {
@@ -42,7 +42,7 @@ class FeedDTO {
     }
 
     List<String> getUsersWhoLiked() {
-        return usersWhoLiked
+        usersWhoLiked
     }
 
     void setUsersWhoLiked(List<String> usersWhoLiked) {
