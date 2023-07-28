@@ -1,22 +1,46 @@
 package com.app.twitter.domain
 
-import lombok.AllArgsConstructor
-import lombok.Builder
-import lombok.Data
-import lombok.NoArgsConstructor
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
 @Document(collection = "posts")
 class Post {
-   @Id
-   private UUID id
-   private String content
-   private User author
-   private List<Comment> comments = []
-   private List<User> favorites = []
+    @Id
+    private String id
+    private String content
+    private String authorId
+    private List<String> comments = []
+    private List<String> favorites = []
+
+    String getId() {
+        id
+    }
+
+    void setId(String id) {
+        this.id = id
+    }
+
+    String getContent() {
+        content
+    }
+
+    void setContent(String content) {
+        this.content = content
+    }
+
+    String getAuthorId() {
+        authorId
+    }
+
+    void setAuthorId(String authorId) {
+        this.authorId = authorId
+    }
+
+    List<String> getComments() {
+        comments
+    }
+
+    List<String> getFavorites() {
+        favorites
+    }
 }

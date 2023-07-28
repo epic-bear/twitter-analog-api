@@ -1,26 +1,55 @@
 package com.app.twitter.domain
 
-import lombok.AllArgsConstructor
-import lombok.Builder
-import lombok.Data
-import lombok.NoArgsConstructor
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
 @Document(collection = "users")
 class User {
     @Id
-    private UUID id
+    private String id
     private String password
 
     @Indexed(unique = true)
     private String username
-    private List<User> subscriptions = []
-    private List<Post> posts = []
-    private List<Post> favorites = []
+
+    private List<String> subscriptions = []
+    private List<String> posts = []
+    private List<String> favorites = []
+
+    String getId() {
+        id
+    }
+
+    String getPassword() {
+        password
+    }
+
+    String getUsername() {
+        username
+    }
+
+    List<String> getSubscriptions() {
+        subscriptions
+    }
+
+    List<String> getPosts() {
+        posts
+    }
+
+    List<String> getFavorites() {
+        favorites
+    }
+
+    void setId(String id) {
+        this.id = id
+    }
+
+    void setPassword(String password) {
+        this.password = password
+    }
+
+    void setUsername(String username) {
+        this.username = username
+    }
 }
