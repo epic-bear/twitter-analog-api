@@ -12,14 +12,18 @@ import org.springframework.stereotype.Service
 @Service
 class UserServiceImpl implements UserService {
     private final UserRepository userRepository
-    private final PostService postService;
-    private final CommentService commentService;
+    private PostService postService
+    private final CommentService commentService
 
     @Autowired
-    UserServiceImpl(UserRepository userRepository, PostService postService, CommentService commentService) {
-        this.userRepository = userRepository;
-        this.postService = postService;
-        this.commentService = commentService;
+    UserServiceImpl(UserRepository userRepository, CommentService commentService) {
+        this.userRepository = userRepository
+        this.commentService = commentService
+    }
+
+    @Autowired
+    void setPostService(PostService postService) {
+        this.postService = postService
     }
 
     @Override
@@ -83,6 +87,8 @@ class UserServiceImpl implements UserService {
         user.posts.add(post.id)
         updateUser(user.id, user)
     }
+
+
 
     @Override
     UserDTO getUserFeed(String userId) {

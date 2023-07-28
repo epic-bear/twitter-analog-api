@@ -3,15 +3,16 @@ package com.app.twitter.service
 import com.app.twitter.domain.Comment
 import com.app.twitter.repository.CommentRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 
 @Service
 class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository
-    private final PostService postService
+    private PostService postService
 
     @Autowired
-    CommentServiceImpl(CommentRepository commentRepository, PostService postService) {
+    CommentServiceImpl(CommentRepository commentRepository, @Lazy PostService postService) {
         this.commentRepository = commentRepository
         this.postService = postService
     }

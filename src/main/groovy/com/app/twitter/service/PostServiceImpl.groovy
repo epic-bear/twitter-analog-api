@@ -5,6 +5,7 @@ import com.app.twitter.domain.Post
 import com.app.twitter.domain.User
 import com.app.twitter.repository.PostRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,7 +15,7 @@ class PostServiceImpl implements PostService {
     private final CommentService commentService
 
     @Autowired
-    PostServiceImpl(PostRepository postRepository, UserService userService, CommentService commentService) {
+    PostServiceImpl(PostRepository postRepository, @Lazy UserService userService, CommentService commentService) {
         this.postRepository = postRepository
         this.userService = userService
         this.commentService = commentService
