@@ -1,5 +1,6 @@
 package com.app.twitter.controller
 
+import com.app.twitter.domain.Comment
 import com.app.twitter.domain.Post
 import com.app.twitter.service.PostService
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,6 +19,7 @@ class PostController {
     private static final String POST_PATH = '/api/post'
     private static final String POST_PATH_ID = '/api/post/{id}'
     private static final String POST_PATH_LIKE_TOGGLE = '/api/post/{id}/like/{userId}'
+    private static final String POST_PATH_GET_COMMENTS = '/api/post/{id}/comments'
 
     private final PostService postService
 
@@ -53,5 +55,10 @@ class PostController {
     ResponseEntity toggleLikePost(@PathVariable String id, @PathVariable String userId) {
         postService.toggleLikePost(id, userId)
         new ResponseEntity<>(HttpStatus.OK)
+    }
+
+    @GetMapping(POST_PATH_GET_COMMENTS)
+    List<Comment> getCommentsForPost(@PathVariable String id) {
+        postService.getComments(id)
     }
 }

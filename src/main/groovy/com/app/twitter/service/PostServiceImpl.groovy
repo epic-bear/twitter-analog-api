@@ -11,17 +11,19 @@ import org.springframework.stereotype.Service
 class PostServiceImpl implements PostService {
     private final PostRepository postRepository
     private final UserService userService
+    private final CommentService commentService
 
     @Autowired
-    PostServiceImpl(PostRepository postRepository, UserService userService) {
+    PostServiceImpl(PostRepository postRepository, UserService userService, CommentService commentService) {
         this.postRepository = postRepository
         this.userService = userService
+        this.commentService = commentService
     }
 
     @Override
     Post createPost(Post post) {
         Post savedPost = postRepository.save(post)
-        UserService.addPost(post)
+        userService.addPost(post)
         savedPost
     }
 
@@ -69,5 +71,10 @@ class PostServiceImpl implements PostService {
        Post post = getPostById(comment.postId)
        post.comments.add(comment.id)
        updatePost(post.id, post)
+    }
+
+    @Override
+    List<Comment> getComments(String postId) {
+        commentService.getCommentsByPostId(postId)
     }
 }

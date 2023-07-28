@@ -16,4 +16,6 @@ interface PostService {
     void toggleLikePost(String id, String userId);
 
     void addComment(Comment comment);
+
+    List<Comment> getComments(String postId);
 }
