@@ -9,6 +9,7 @@ class Comment {
     private String id
     private String content
     private String authorId
+    private String postId
 
     String getId() {
         id
@@ -32,5 +33,13 @@ class Comment {
 
     void setAuthor(String authorId) {
         this.authorId = authorId
+    }
+
+    String getPostId() {
+        return postId
+    }
+
+    void setPostId(String postId) {
+        this.postId = postId
     }
 }

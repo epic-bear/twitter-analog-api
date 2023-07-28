@@ -12,8 +12,8 @@ class User {
 
     @Indexed(unique = true)
     private String username
-
     private List<String> subscriptions = []
+    private List<String> subscribers = []
     private List<String> posts = []
     private List<String> favorites = []
 
@@ -23,6 +23,14 @@ class User {
 
     String getPassword() {
         password
+    }
+
+    List<String> getSubscribers() {
+        return subscribers
+    }
+
+    void setSubscribers(List<String> subscribers) {
+        this.subscribers = subscribers
     }
 
     String getUsername() {
