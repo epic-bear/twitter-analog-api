@@ -13,7 +13,7 @@ class Post {
     private List<String> usersWhoLiked = []
 
     String getId() {
-        id
+        return id
     }
 
     void setId(String id) {
@@ -21,7 +21,7 @@ class Post {
     }
 
     String getContent() {
-        content
+        return content
     }
 
     void setContent(String content) {
@@ -29,7 +29,7 @@ class Post {
     }
 
     String getAuthorId() {
-        authorId
+        return authorId
     }
 
     void setAuthorId(String authorId) {
@@ -37,10 +37,18 @@ class Post {
     }
 
     List<String> getComments() {
-        comments
+        return comments
+    }
+
+    void setComments(List<String> comments) {
+        this.comments = comments
     }
 
     List<String> getUsersWhoLiked() {
-        usersWhoLiked
+        return usersWhoLiked
+    }
+
+    void setUsersWhoLiked(List<String> usersWhoLiked) {
+        this.usersWhoLiked = usersWhoLiked
     }
 }

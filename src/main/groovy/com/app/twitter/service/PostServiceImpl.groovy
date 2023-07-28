@@ -34,8 +34,10 @@ class PostServiceImpl implements PostService {
 
     @Override
     void updatePost(String id, Post updatedPost) {
-        Post post = getPostById()
-        post.content = updatedPost.content
+        Post post = getPostById(id)
+        post.content = updatedPost.content ?: post.content
+        post.comments = updatedPost.comments ?: post.comments
+        post.usersWhoLiked = updatedPost.usersWhoLiked ?: post.usersWhoLiked
         postRepository.save(post)
     }
 

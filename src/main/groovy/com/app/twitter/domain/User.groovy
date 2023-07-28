@@ -18,11 +18,35 @@ class User {
     private List<String> likedPosts = []
 
     String getId() {
-        id
+        return id
+    }
+
+    void setId(String id) {
+        this.id = id
     }
 
     String getPassword() {
-        password
+        return password
+    }
+
+    void setPassword(String password) {
+        this.password = password
+    }
+
+    String getUsername() {
+        return username
+    }
+
+    void setUsername(String username) {
+        this.username = username
+    }
+
+    List<String> getSubscriptions() {
+        return subscriptions
+    }
+
+    void setSubscriptions(List<String> subscriptions) {
+        this.subscriptions = subscriptions
     }
 
     List<String> getSubscribers() {
@@ -33,31 +57,19 @@ class User {
         this.subscribers = subscribers
     }
 
-    String getUsername() {
-        username
-    }
-
-    List<String> getSubscriptions() {
-        subscriptions
-    }
-
     List<String> getPosts() {
-        posts
+        return posts
+    }
+
+    void setPosts(List<String> posts) {
+        this.posts = posts
     }
 
     List<String> getLikedPosts() {
-        likedPosts
+        return likedPosts
     }
 
-    void setId(String id) {
-        this.id = id
-    }
-
-    void setPassword(String password) {
-        this.password = password
-    }
-
-    void setUsername(String username) {
-        this.username = username
+    void setLikedPosts(List<String> likedPosts) {
+        this.likedPosts = likedPosts
     }
 }

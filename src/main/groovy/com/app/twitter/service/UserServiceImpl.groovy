@@ -38,14 +38,15 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    void updateUser(String id, User user) {
-        Optional<User> optionalUser = userRepository.findById(id)
-        if (optionalUser.isPresent()) {
-            User updatedUser = optionalUser.get()
-            updatedUser.username = user.username
-            updatedUser.password = user.password
-            userRepository.save(updatedUser)
-        }
+    void updateUser(String id, User updatedUser) {
+        User user = getUserById(id)
+        user.username = updatedUser.username ?: user.username
+        user.password = updatedUser.password ?: user.password
+        user.posts = updatedUser.posts ?: user.posts
+        user.likedPosts = updatedUser.likedPosts ?: user.likedPosts
+        user.subscribers = updatedUser.subscribers ?: user.subscribers
+        user.password = updatedUser.subscriptions ?: user.subscriptions
+        userRepository.save(updatedUser)
     }
 
     @Override

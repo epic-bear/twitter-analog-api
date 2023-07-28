@@ -30,13 +30,10 @@ class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    void updateComment(String id, Comment comment) {
-        Optional<Comment> optionalComment = commentRepository.findById(id)
-        if (optionalComment.isPresent()) {
-            Comment updatedComment = optionalComment.get()
-            updatedComment.content = comment.content
-            commentRepository.save(comment)
-        }
+    void updateComment(String id, Comment updatedComment) {
+        Comment comment = getCommentById(id)
+        comment.content = updatedComment.content ?: comment.content
+        commentRepository.save(updatedComment)
     }
 
     @Override
