@@ -1,5 +1,6 @@
 package com.app.twitter.service
 
+import com.app.twitter.domain.Comment
 import com.app.twitter.domain.Post
 import com.app.twitter.domain.User
 import com.app.twitter.repository.PostRepository
@@ -19,7 +20,9 @@ class PostServiceImpl implements PostService {
 
     @Override
     Post createPost(Post post) {
-        postRepository.save(post)
+        Post savedPost = postRepository.save(post)
+        UserService.addPost(post)
+        savedPost
     }
 
     @Override
@@ -59,5 +62,12 @@ class PostServiceImpl implements PostService {
         }
         updatePost(postId, post)
         userService.updateUser(userId, user)
+    }
+
+    @Override
+    void addComment(Comment comment) {
+       Post post = getPostById(comment.postId)
+       post.comments.add(comment.id)
+       updatePost(post.id, post)
     }
 }

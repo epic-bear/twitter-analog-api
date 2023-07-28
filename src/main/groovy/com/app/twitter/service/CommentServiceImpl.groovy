@@ -8,15 +8,19 @@ import org.springframework.stereotype.Service
 @Service
 class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository
+    private final PostService postService
 
     @Autowired
-    CommentServiceImpl(CommentRepository commentRepository) {
+    CommentServiceImpl(CommentRepository commentRepository, PostService postService) {
         this.commentRepository = commentRepository
+        this.postService = postService
     }
 
     @Override
     Comment createComment(Comment comment) {
-        commentRepository.save(comment)
+        Comment savedComment = commentRepository.save(comment)
+        postService.addComment(savedComment)
+        savedComment
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.app.twitter.service
 
+import com.app.twitter.domain.Post
 import com.app.twitter.domain.User
 import com.app.twitter.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -69,5 +70,12 @@ class UserServiceImpl implements UserService {
 
         updateUser(userId, user)
         updateUser(targetUserId, targetUser)
+    }
+
+    @Override
+    void addPost(Post post) {
+        User user = getUserById(post.authorId)
+        user.posts.add(post.id)
+        updateUser(user.id, user)
     }
 }

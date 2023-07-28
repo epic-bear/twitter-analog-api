@@ -1,5 +1,6 @@
 package com.app.twitter.service
 
+import com.app.twitter.domain.Comment
 import com.app.twitter.domain.Post
 
 interface PostService {
@@ -13,4 +14,6 @@ interface PostService {
     void deletePostById(String id);
 
     void toggleLikePost(String id, String userId);
+
+    void addComment(Comment comment);
 }

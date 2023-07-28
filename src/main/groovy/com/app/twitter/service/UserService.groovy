@@ -1,5 +1,6 @@
 package com.app.twitter.service
 
+import com.app.twitter.domain.Post
 import com.app.twitter.domain.User
 
 interface UserService {
@@ -15,4 +16,6 @@ interface UserService {
     void deleteUserById(String id);
 
     void toggleSubscription(String userId, String targetUserId);
+
+    void addPost(Post post);
 }
