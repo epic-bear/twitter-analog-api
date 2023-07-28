@@ -19,4 +19,6 @@ interface UserService {
     void addPost(Post post);
 
     UserDTO getUserFeed(String userId);
+
+    List<User> getAllUsersWhoLikedPost(String postId)
 }

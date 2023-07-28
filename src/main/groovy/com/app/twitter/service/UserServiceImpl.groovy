@@ -53,8 +53,17 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    void deleteUserById(String id) {
-        userRepository.deleteById(id)
+    void deleteUserById(String userId) {
+        User user = getUserById(userId)
+        List<String> postIds = user.posts
+        postService.deleteAllById(postIds)
+        List<String> subscribers = user.subscribers
+        subscribers.each { subscriberId ->
+            User subscriber = getUserById(subscriberId)
+            subscriber.subscriptions.remove(userId);
+            userRepository.save(subscriber)
+        }
+        userRepository.deleteById(userId)
     }
 
     @Override
@@ -94,6 +103,11 @@ class UserServiceImpl implements UserService {
         new UserDTO(ownerId: user.getId(), feed: feed)
     }
 
+    @Override
+    List<User> getAllUsersWhoLikedPost(String postId) {
+        return userRepository.findAllUsersByLikedPost(postId)
+    }
+
     private FeedDTO fetchPostData(String postId) {
         Post post = postService.getPostById(postId)
         List<Comment> comments = commentService.getCommentsByPostId(postId)
@@ -106,4 +120,5 @@ class UserServiceImpl implements UserService {
                 usersWhoLiked: usersWhoLiked
         )
     }
+
 }

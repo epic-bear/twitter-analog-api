@@ -48,8 +48,15 @@ class PostServiceImpl implements PostService {
     }
 
     @Override
-    void deletePostById(String id) {
-        postRepository.deleteById(id)
+    void deletePostById(String postId) {
+        Post post = getPostById(postId)
+        List<User> usersWhoLiked = userService.getAllUsersWhoLikedPost(postId)
+        usersWhoLiked.each { user ->
+            user.likedPosts.remove(postId)
+            userService.updateUser(user.id, user)
+        }
+        commentService.deleteAllById(post.comments)
+        postRepository.deleteById(postId)
     }
 
     @Override
@@ -77,5 +84,12 @@ class PostServiceImpl implements PostService {
     @Override
     List<Comment> getComments(String postId) {
         commentService.getCommentsByPostId(postId)
+    }
+
+    @Override
+    void deleteAllById(List<String> postIds) {
+        postIds.each { postId ->
+            deletePostById(postId)
+        }
     }
 }

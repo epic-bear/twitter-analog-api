@@ -13,4 +13,6 @@ interface CommentService {
     void deleteCommentById(String id);
 
     List<Comment> getCommentsByPostId(String postId);
+
+    void deleteAllById(List<String> comments);
 }

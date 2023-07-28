@@ -18,4 +18,6 @@ interface PostService {
     void addComment(Comment comment);
 
     List<Comment> getComments(String postId);
+
+    void deleteAllById(List<String> postIds)
 }
