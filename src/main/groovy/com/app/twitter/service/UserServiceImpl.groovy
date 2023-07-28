@@ -1,7 +1,10 @@
 package com.app.twitter.service
 
+import com.app.twitter.domain.Comment
 import com.app.twitter.domain.Post
 import com.app.twitter.domain.User
+import com.app.twitter.dto.FeedDTO
+import com.app.twitter.dto.UserDTO
 import com.app.twitter.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -9,10 +12,14 @@ import org.springframework.stereotype.Service
 @Service
 class UserServiceImpl implements UserService {
     private final UserRepository userRepository
+    private final PostService postService;
+    private final CommentService commentService;
 
     @Autowired
-    UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository
+    UserServiceImpl(UserRepository userRepository, PostService postService, CommentService commentService) {
+        this.userRepository = userRepository;
+        this.postService = postService;
+        this.commentService = commentService;
     }
 
     @Override
@@ -59,7 +66,6 @@ class UserServiceImpl implements UserService {
     void toggleSubscription(String userId, String targetUserId) {
         User user = getUserById(userId)
         User targetUser = getUserById(targetUserId)
-
         if (user.subscriptions.contains(targetUserId)) {
             user.subscriptions.remove(targetUserId)
             targetUser.subscribers.remove(userId)
@@ -67,7 +73,6 @@ class UserServiceImpl implements UserService {
             user.subscriptions.add(targetUserId)
             targetUser.subscribers.add(userId)
         }
-
         updateUser(userId, user)
         updateUser(targetUserId, targetUser)
     }
@@ -78,4 +83,33 @@ class UserServiceImpl implements UserService {
         user.posts.add(post.id)
         updateUser(user.id, user)
     }
+
+    @Override
+    UserDTO getUserFeed(String userId) {
+        User user = getUserById(userId)
+        List<FeedDTO> feed = user.getPosts().collect { postId ->
+           fetchPostData(postId)
+        }
+        user.getSubscriptions().each { subscribedUserId ->
+            User subscribedUser = getUserById(subscribedUserId)
+            subscribedUser.getPosts().each { postId ->
+                feed << fetchPostData(postId)
+            }
+        }
+        new UserDTO(ownerId: user.getId(), feed: feed)
+    }
+
+    private FeedDTO fetchPostData(String postId) {
+        Post post = postService.getPostById(postId)
+        List<Comment> comments = commentService.getCommentsByPostId(postId)
+        List<String> usersWhoLiked = post.usersWhoLiked
+        new FeedDTO(
+                postId: post.getId(),
+                content: post.getContent(),
+                authorId: post.getAuthorId(),
+                comments: comments,
+                usersWhoLiked: usersWhoLiked
+        )
+    }
+
 }
