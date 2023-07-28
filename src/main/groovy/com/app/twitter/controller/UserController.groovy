@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 class UserController {
     public static final String USER_PATH = '/api/user'
     public static final String USER_PATH_ID = '/api/user/{id}'
+    public static final String USER_PATH_SUBSCRIPTION = '/api/user/{id}/subscription/{targetUserId}'
 
     private final UserService userService
 
@@ -51,5 +52,11 @@ class UserController {
     ResponseEntity deleteUserById(@PathVariable String id) {
         userService.deleteUserById(id)
         new ResponseEntity(HttpStatus.OK)
+    }
+
+    @PostMapping(USER_PATH_SUBSCRIPTION)
+    ResponseEntity toggleSubscription(@PathVariable String id, @PathVariable String targetUserId) {
+            userService.toggleSubscription(id, targetUserId)
+            new ResponseEntity(HttpStatus.OK)
     }
 }

@@ -13,4 +13,6 @@ interface UserService {
     void updateUser(String id, User updatedUser);
 
     void deleteUserById(String id);
+
+    void toggleSubscription(String userId, String targetUserId);
 }

@@ -53,4 +53,21 @@ class UserServiceImpl implements UserService {
     void deleteUserById(String id) {
         userRepository.deleteById(id)
     }
+
+    @Override
+    void toggleSubscription(String userId, String targetUserId) {
+        User user = getUserById(userId)
+        User targetUser = getUserById(targetUserId)
+
+        if (user.subscriptions.contains(targetUserId)) {
+            user.subscriptions.remove(targetUserId)
+            targetUser.subscribers.remove(userId)
+        } else {
+            user.subscriptions.add(targetUserId)
+            targetUser.subscribers.add(userId)
+        }
+
+        updateUser(userId, user)
+        updateUser(targetUserId, targetUser)
+    }
 }
