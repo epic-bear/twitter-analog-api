@@ -11,4 +11,6 @@ interface PostService {
     void updatePost(String id, Post updatedPost);
 
     void deletePostById(String id);
+
+    void toggleLikePost(String id, String userId);
 }

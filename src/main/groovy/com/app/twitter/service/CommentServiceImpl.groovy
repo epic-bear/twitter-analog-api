@@ -25,7 +25,7 @@ class CommentServiceImpl implements CommentService {
         if (optionalComment.isPresent()) {
             optionalComment.get()
         } else {
-            throw new Exception("Comment not found")
+            throw new Exception('Comment not found')
         }
     }
 

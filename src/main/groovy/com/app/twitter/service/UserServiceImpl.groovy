@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository
 
     @Autowired
@@ -29,7 +28,7 @@ class UserServiceImpl implements UserService {
         if (optionalUser.isPresent()) {
             optionalUser.get()
         } else {
-            throw new Exception("User not found")
+            throw new Exception('User not found')
         }
     }
 

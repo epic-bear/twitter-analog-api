@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 class PostController {
     private static final String POST_PATH = '/api/post'
     private static final String POST_PATH_ID = '/api/post/{id}'
+    private static final String POST_PATH_LIKE_TOGGLE = '/api/post/{id}/like/{userId}'
 
     private final PostService postService
 
@@ -48,4 +49,9 @@ class PostController {
         new ResponseEntity<>(HttpStatus.OK)
     }
 
+    @PutMapping(POST_PATH_LIKE_TOGGLE)
+    ResponseEntity toggleLikePost(@PathVariable String id, @PathVariable String userId) {
+        postService.toggleLikePost(id, userId)
+        new ResponseEntity<>(HttpStatus.OK)
+    }
 }
