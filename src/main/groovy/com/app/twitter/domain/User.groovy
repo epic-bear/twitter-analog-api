@@ -15,7 +15,7 @@ class User {
     private List<String> subscriptions = []
     private List<String> subscribers = []
     private List<String> posts = []
-    private List<String> favorites = []
+    private List<String> likedPosts = []
 
     String getId() {
         id
@@ -45,8 +45,8 @@ class User {
         posts
     }
 
-    List<String> getFavorites() {
-        favorites
+    List<String> getLikedPosts() {
+        likedPosts
     }
 
     void setId(String id) {

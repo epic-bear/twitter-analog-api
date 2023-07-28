@@ -10,7 +10,7 @@ class Post {
     private String content
     private String authorId
     private List<String> comments = []
-    private List<String> favorites = []
+    private List<String> usersWhoLiked = []
 
     String getId() {
         id
@@ -40,7 +40,7 @@ class Post {
         comments
     }
 
-    List<String> getFavorites() {
-        favorites
+    List<String> getUsersWhoLiked() {
+        usersWhoLiked
     }
 }
