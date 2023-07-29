@@ -45,7 +45,7 @@ class UserController {
 
     @PostMapping(USER_PATH_SUBSCRIPTION)
     ResponseEntity toggleSubscription(@PathVariable String id, @PathVariable String targetUserId) {
-            userService.toggleSubscription(id, targetUserId)
+        userService.toggleSubscription(id, targetUserId)
     }
 
     @GetMapping(USER_PATH_FEED)

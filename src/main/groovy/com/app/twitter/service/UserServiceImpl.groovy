@@ -90,8 +90,8 @@ class UserServiceImpl implements UserService {
     @Override
     void addPost(Post post) {
         User user = getUserById(post.authorId)
-        if(!user.posts) {
-            user.posts =  []
+        if (!user.posts) {
+            user.posts = []
         }
         user.posts.add(post.id)
         updateUser(user.id, user)
