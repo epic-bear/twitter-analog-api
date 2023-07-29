@@ -18,10 +18,13 @@ import spock.lang.Specification
 class PostServiceIntegrationSpec extends Specification {
     @Autowired
     PostService postService
+
     @Autowired
     PostRepository postRepository
+
     @Autowired
     UserRepository userRepository
+
     @Autowired
     CommentRepository commentRepository
     User user
@@ -109,6 +112,7 @@ class PostServiceIntegrationSpec extends Specification {
         cleanup:
         postRepository.deleteAll()
         userRepository.deleteAll()
+        commentRepository.deleteAll()
     }
 
     def "should like post"() {

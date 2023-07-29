@@ -17,12 +17,16 @@ import spock.lang.Specification
 class CommentServiceIntegrationSpec extends Specification {
     @Autowired
     CommentService commentService
+
     @Autowired
     PostService postService
+
     @Autowired
     CommentRepository commentRepository
+
     @Autowired
     PostRepository postRepository
+
     @Autowired
     UserRepository userRepository
 
@@ -85,5 +89,6 @@ class CommentServiceIntegrationSpec extends Specification {
 
         cleanup:
         commentRepository.deleteAll()
+        postRepository.deleteAll()
     }
 }
