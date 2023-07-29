@@ -70,11 +70,12 @@ class UserServiceIntegrationSpec extends Specification {
     def "should delete a user and related data"() {
         given:
         setup()
+        user.id = "testUser"
         user.posts = ["post1", "post2"]
         user.subscribers = ["subscriber"]
         User createdUser = userRepository.save(user)
-        postRepository.save(new Post(id: "post1", content: "Post 1"))
-        postRepository.save(new Post(id: "post2", content: "Post 2"))
+        postRepository.save(new Post(id: "post1", content: "Post 1", authorId: user.id))
+        postRepository.save(new Post(id: "post2", content: "Post 2", authorId: user.id))
         User subscriber = new User(id: "subscriber", subscriptions: [createdUser.id])
         userRepository.save(subscriber)
 

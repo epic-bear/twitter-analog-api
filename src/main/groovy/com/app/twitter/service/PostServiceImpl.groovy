@@ -42,7 +42,7 @@ class PostServiceImpl implements PostService {
     Post updatePost(String id, Post updatedPost) {
         Post post = getPostById(id)
         post.content = updatedPost.content ?: post.content
-        post.comments = updatedPost.comments ?: post.comments
+        post.comments = updatedPost.comments != null ? updatedPost.comments : post.comments
         post.usersWhoLiked = updatedPost.usersWhoLiked != null ? updatedPost.usersWhoLiked : post.usersWhoLiked
         postRepository.save(post)
     }
@@ -90,6 +90,9 @@ class PostServiceImpl implements PostService {
     @Override
     void addComment(Comment comment) {
         Post post = getPostById(comment.postId)
+        if (!post.comments) {
+            post.comments = []
+        }
         post.comments.add(comment.id)
         updatePost(post.id, post)
     }
