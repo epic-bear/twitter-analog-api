@@ -120,5 +120,4 @@ class UserServiceImpl implements UserService {
                 usersWhoLiked: usersWhoLiked
         )
     }
-
 }
