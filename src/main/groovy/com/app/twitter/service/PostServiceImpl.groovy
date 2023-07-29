@@ -43,19 +43,26 @@ class PostServiceImpl implements PostService {
         Post post = getPostById(id)
         post.content = updatedPost.content ?: post.content
         post.comments = updatedPost.comments ?: post.comments
-        post.usersWhoLiked = updatedPost.usersWhoLiked ?: post.usersWhoLiked
+        post.usersWhoLiked = updatedPost.usersWhoLiked != null ? updatedPost.usersWhoLiked : post.usersWhoLiked
         postRepository.save(post)
     }
 
     @Override
     void deletePostById(String postId) {
         Post post = getPostById(postId)
-        List<User> usersWhoLiked = userService.getAllUsersWhoLikedPost(postId)
-        usersWhoLiked.each { user ->
-            user.likedPosts.remove(postId)
-            userService.updateUser(user.id, user)
+        User author = userService.getUserById(post.authorId)
+        author.posts.remove(postId)
+        userService.updateUser(author.id, author)
+        if (post.usersWhoLiked) {
+            List<User> usersWhoLiked = userService.getAllUsersWhoLikedPost(postId)
+            usersWhoLiked.each { user ->
+                user.likedPosts.remove(postId)
+                userService.updateUser(user.id, user)
+            }
         }
-        commentService.deleteAllById(post.comments)
+        if (post.comments) {
+            commentService.deleteAllById(post.comments)
+        }
         postRepository.deleteById(postId)
     }
 
@@ -63,11 +70,17 @@ class PostServiceImpl implements PostService {
     void toggleLikePost(String postId, String userId) {
         Post post = getPostById(postId)
         User user = userService.getUserById(userId)
-        if (post.usersWhoLiked.contains(userId)) {
+        if (post.usersWhoLiked && post.usersWhoLiked.contains(userId)) {
             post.usersWhoLiked.remove(userId)
-            user.likedPosts.remove()
+            user.likedPosts.remove(postId)
         } else {
+            if (!post.usersWhoLiked) {
+                post.usersWhoLiked = []
+            }
             post.usersWhoLiked.add(userId)
+            if (!user.likedPosts) {
+                user.likedPosts = []
+            }
             user.likedPosts.add(postId)
         }
         updatePost(postId, post)

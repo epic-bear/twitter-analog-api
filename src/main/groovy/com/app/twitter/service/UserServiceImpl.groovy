@@ -45,11 +45,11 @@ class UserServiceImpl implements UserService {
         User user = getUserById(id)
         user.username = updatedUser.username ?: user.username
         user.password = updatedUser.password ?: user.password
-        user.posts = updatedUser.posts ?: user.posts
-        user.likedPosts = updatedUser.likedPosts ?: user.likedPosts
-        user.subscribers = updatedUser.subscribers ?: user.subscribers
-        user.password = updatedUser.subscriptions ?: user.subscriptions
-        userRepository.save(updatedUser)
+        user.posts = updatedUser.posts != null ? updatedUser.posts : user.posts
+        user.likedPosts = updatedUser.likedPosts != null ? updatedUser.likedPosts : user.likedPosts
+        user.subscribers = updatedUser.subscribers != null ? updatedUser.subscribers : user.subscribers
+        user.subscriptions = updatedUser.subscriptions != null ? updatedUser.subscriptions : user.subscriptions
+        userRepository.save(user)
     }
 
     @Override
@@ -70,11 +70,17 @@ class UserServiceImpl implements UserService {
     void toggleSubscription(String userId, String targetUserId) {
         User user = getUserById(userId)
         User targetUser = getUserById(targetUserId)
-        if (user.subscriptions.contains(targetUserId)) {
+        if (user.subscriptions && user.subscriptions.contains(targetUserId)) {
             user.subscriptions.remove(targetUserId)
             targetUser.subscribers.remove(userId)
         } else {
+            if (!user.subscriptions) {
+                user.subscriptions = []
+            }
             user.subscriptions.add(targetUserId)
+            if (!targetUser.subscribers) {
+                targetUser.subscribers = []
+            }
             targetUser.subscribers.add(userId)
         }
         updateUser(userId, user)
@@ -84,6 +90,9 @@ class UserServiceImpl implements UserService {
     @Override
     void addPost(Post post) {
         User user = getUserById(post.authorId)
+        if(!user.posts) {
+            user.posts =  []
+        }
         user.posts.add(post.id)
         updateUser(user.id, user)
     }

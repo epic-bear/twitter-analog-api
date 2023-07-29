@@ -12,10 +12,10 @@ class User {
 
     @Indexed(unique = true)
     private String username
-    private List<String> subscriptions = []
-    private List<String> subscribers = []
-    private List<String> posts = []
-    private List<String> likedPosts = []
+    private List<String> subscriptions
+    private List<String> subscribers
+    private List<String> posts
+    private List<String> likedPosts
 
     String getId() {
         id
