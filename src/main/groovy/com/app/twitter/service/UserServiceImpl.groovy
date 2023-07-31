@@ -120,13 +120,13 @@ class UserServiceImpl implements UserService {
     private FeedDTO fetchPostData(String postId) {
         Post post = postService.getPostById(postId)
         List<Comment> comments = commentService.getCommentsByPostId(postId)
-        List<String> usersWhoLiked = post.usersWhoLiked
+        List<String> usersWhoLiked = post.likes
         new FeedDTO(
                 postId: post.getId(),
                 content: post.getContent(),
                 authorId: post.getAuthorId(),
                 comments: comments,
-                usersWhoLiked: usersWhoLiked
+                likes: usersWhoLiked
         )
     }
 }

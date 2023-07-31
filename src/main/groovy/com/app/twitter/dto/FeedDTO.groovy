@@ -7,7 +7,7 @@ class FeedDTO {
     private String content
     private String authorId
     private List<Comment> comments
-    private List<String> usersWhoLiked
+    private List<String> likes
 
     String getPostId() {
         postId
@@ -41,11 +41,11 @@ class FeedDTO {
         this.comments = comments
     }
 
-    List<String> getUsersWhoLiked() {
-        usersWhoLiked
+    List<String> getLikes() {
+        likes
     }
 
-    void setUsersWhoLiked(List<String> usersWhoLiked) {
-        this.usersWhoLiked = usersWhoLiked
+    void setLikes(List<String> likes) {
+        this.likes = likes
     }
 }

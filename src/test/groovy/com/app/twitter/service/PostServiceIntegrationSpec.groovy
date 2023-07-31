@@ -65,7 +65,7 @@ class PostServiceIntegrationSpec extends Specification {
                 id: savedPost.id,
                 content: "Updated post content",
                 comments: ["Comment 1", "Comment 2"],
-                usersWhoLiked: [user.id]
+                likes: [user.id]
         )
         Post result = postService.updatePost(savedPost.id, updatedPost)
 
@@ -74,7 +74,7 @@ class PostServiceIntegrationSpec extends Specification {
         result.id == savedPost.id
         result.content == "Updated post content"
         result.comments == ["Comment 1", "Comment 2"]
-        result.usersWhoLiked == [user.id]
+        result.likes == [user.id]
 
         cleanup:
         postRepository.deleteAll()
@@ -87,7 +87,7 @@ class PostServiceIntegrationSpec extends Specification {
         Comment comment = commentRepository.save(new Comment(id: "testComment",
                 postId: "testPost",
                 authorId: "testUser"))
-        post.usersWhoLiked = [user.id]
+        post.likes = [user.id]
         post.comments = [comment.id]
         user.likedPosts = [post.id]
         userRepository.save(user)
@@ -128,7 +128,7 @@ class PostServiceIntegrationSpec extends Specification {
 
         then:
         updatedPost != null
-        updatedPost.usersWhoLiked == [user.id]
+        updatedPost.likes == [user.id]
         updatedUser.likedPosts == [updatedPost.id]
 
         cleanup:
@@ -141,7 +141,7 @@ class PostServiceIntegrationSpec extends Specification {
         setup()
         user.likedPosts = [post.id]
         user = userRepository.save(user)
-        post.usersWhoLiked = ["testUser"]
+        post.likes = ["testUser"]
         Post savedPost = postRepository.save(post)
 
         when:
@@ -151,7 +151,7 @@ class PostServiceIntegrationSpec extends Specification {
 
         then:
         updatedPost != null
-        updatedPost.usersWhoLiked == []
+        updatedPost.likes == []
         updatedUser.likedPosts == []
 
         cleanup:

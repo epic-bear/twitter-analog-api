@@ -155,12 +155,12 @@ class UserServiceIntegrationSpec extends Specification {
         postRepository.save(new Post(id: "post1",
                 content: "Post 1",
                 authorId: "user1",
-                usersWhoLiked: ["user2"],
+                likes: ["user2"],
                 comments: ["comment1"]))
         postRepository.save(new Post(id: "post2",
                 content: "Post 2",
                 authorId: "user2",
-                usersWhoLiked: ["user1"],
+                likes: ["user1"],
                 comments: ["comment2"]))
         commentRepository.save(new Comment(id: "comment1",
                 content: "comment1",
@@ -186,7 +186,7 @@ class UserServiceIntegrationSpec extends Specification {
         userFeed.feed[0].comments[0].content == "comment1"
         userFeed.feed[0].comments[0].authorId == "user2"
         userFeed.feed[0].comments[0].postId == "post1"
-        userFeed.feed[0].usersWhoLiked == ["user2"]
+        userFeed.feed[0].likes == ["user2"]
         userFeed.feed[1].postId == "post2"
         userFeed.feed[1].content == "Post 2"
         userFeed.feed[1].authorId == "user2"
@@ -195,7 +195,7 @@ class UserServiceIntegrationSpec extends Specification {
         userFeed.feed[1].comments[0].content == "comment2"
         userFeed.feed[1].comments[0].authorId == "user1"
         userFeed.feed[1].comments[0].postId == "post2"
-        userFeed.feed[1].usersWhoLiked == ["user1"]
+        userFeed.feed[1].likes == ["user1"]
 
         cleanup:
         userRepository.deleteAll()

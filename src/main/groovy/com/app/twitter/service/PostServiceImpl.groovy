@@ -43,7 +43,7 @@ class PostServiceImpl implements PostService {
         Post post = getPostById(id)
         post.content = updatedPost.content ?: post.content
         post.comments = updatedPost.comments != null ? updatedPost.comments : post.comments
-        post.usersWhoLiked = updatedPost.usersWhoLiked != null ? updatedPost.usersWhoLiked : post.usersWhoLiked
+        post.likes = updatedPost.likes != null ? updatedPost.likes : post.likes
         postRepository.save(post)
     }
 
@@ -53,7 +53,7 @@ class PostServiceImpl implements PostService {
         User author = userService.getUserById(post.authorId)
         author.posts.remove(postId)
         userService.updateUser(author.id, author)
-        if (post.usersWhoLiked) {
+        if (post.likes) {
             List<User> usersWhoLiked = userService.getAllUsersWhoLikedPost(postId)
             usersWhoLiked.each { user ->
                 user.likedPosts.remove(postId)
@@ -70,14 +70,14 @@ class PostServiceImpl implements PostService {
     void toggleLikePost(String postId, String userId) {
         Post post = getPostById(postId)
         User user = userService.getUserById(userId)
-        if (post.usersWhoLiked && post.usersWhoLiked.contains(userId)) {
-            post.usersWhoLiked.remove(userId)
+        if (post.likes && post.likes.contains(userId)) {
+            post.likes.remove(userId)
             user.likedPosts.remove(postId)
         } else {
-            if (!post.usersWhoLiked) {
-                post.usersWhoLiked = []
+            if (!post.likes) {
+                post.likes = []
             }
-            post.usersWhoLiked.add(userId)
+            post.likes.add(userId)
             if (!user.likedPosts) {
                 user.likedPosts = []
             }

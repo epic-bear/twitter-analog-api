@@ -10,7 +10,7 @@ class Post {
     private String content
     private String authorId
     private List<String> comments
-    private List<String> usersWhoLiked
+    private List<String> likes
 
     String getId() {
         id
@@ -44,11 +44,11 @@ class Post {
         this.comments = comments
     }
 
-    List<String> getUsersWhoLiked() {
-        usersWhoLiked
+    List<String> getLikes() {
+        likes
     }
 
-    void setUsersWhoLiked(List<String> usersWhoLiked) {
-        this.usersWhoLiked = usersWhoLiked
+    void setLikes(List<String> likes) {
+        this.likes = likes
     }
 }
