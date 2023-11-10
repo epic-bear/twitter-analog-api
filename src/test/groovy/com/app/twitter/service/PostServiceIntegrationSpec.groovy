@@ -189,7 +189,7 @@ class PostServiceIntegrationSpec extends Specification {
         userRepository.deleteAll()
     }
 
-    def "should add and remove likes from multiple users"() {
+    def "should handle likes from multiple users"() {
         given:
         setup()
         user = userRepository.save(user)
