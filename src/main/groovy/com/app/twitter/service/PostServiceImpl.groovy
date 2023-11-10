@@ -71,12 +71,9 @@ class PostServiceImpl implements PostService {
         Post post = getPostById(postId);
         User user = userService.getUserById(userId);
 
-        if (post.likes != null && post.likes.contains(userId)) {
+        if (post.likes.contains(userId)) {
             post.likes.remove(userId);
         } else {
-            if (post.likes == null) {
-                post.likes = new ArrayList<>();
-            }
             post.likes.add(userId);
         }
 

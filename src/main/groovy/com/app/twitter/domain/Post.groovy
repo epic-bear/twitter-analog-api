@@ -9,8 +9,8 @@ class Post {
     private String id
     private String content
     private String authorId
-    private List<String> comments
-    private List<String> likes
+    private List<String> comments = []
+    private List<String> likes = []
 
     String getId() {
         id
