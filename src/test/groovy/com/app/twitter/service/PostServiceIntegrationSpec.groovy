@@ -188,4 +188,34 @@ class PostServiceIntegrationSpec extends Specification {
         postRepository.deleteAll()
         userRepository.deleteAll()
     }
+
+    def "should add and remove likes from multiple users"() {
+        given:
+        setup()
+        user = userRepository.save(user)
+        Post savedPost = postRepository.save(post)
+
+        def users = (1..4).collect { new User(id: "user$it", username: "user$it", password: "password$it") }
+        userRepository.saveAll(users)
+
+        when:
+        //4 users liked post
+        users.each { user ->
+            postService.toggleLikePost(savedPost.id, user.id)
+        }
+
+        //2 users unliked post
+        users.take(2).each { user ->
+            postService.toggleLikePost(savedPost.id, user.id)
+        }
+
+        Post updatedPost = postRepository.findById(savedPost.id).orElse(null)
+
+        then:
+        updatedPost.likes.size() == 2
+
+        cleanup:
+        postRepository.deleteAll()
+        userRepository.deleteAll()
+    }
 }
