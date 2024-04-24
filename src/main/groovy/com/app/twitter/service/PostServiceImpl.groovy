@@ -30,12 +30,7 @@ class PostServiceImpl implements PostService {
 
     @Override
     Post getPostById(String id) {
-        Optional<Post> optionalPost = postRepository.findById(id)
-        if (optionalPost.isPresent()) {
-            optionalPost.get()
-        } else {
-            throw new Exception('Post not found')
-        }
+       postRepository.findById(id).orElseThrow()
     }
 
     @Override
@@ -67,7 +62,7 @@ class PostServiceImpl implements PostService {
     }
 
     @Override
-    void toggleLikePost(String postId, String userId) {
+    void toggleLikeForPost(String postId, String userId) {
         Post post = getPostById(postId);
         User user = userService.getUserById(userId);
 
@@ -80,9 +75,6 @@ class PostServiceImpl implements PostService {
         if (user.likedPosts != null && user.likedPosts.contains(postId)) {
             user.likedPosts.remove(postId);
         } else {
-            if (user.likedPosts == null) {
-                user.likedPosts = new ArrayList<>();
-            }
             user.likedPosts.add(postId);
         }
 
@@ -93,9 +85,6 @@ class PostServiceImpl implements PostService {
     @Override
     void addComment(Comment comment) {
         Post post = getPostById(comment.postId)
-        if (!post.comments) {
-            post.comments = []
-        }
         post.comments.add(comment.id)
         updatePost(post.id, post)
     }

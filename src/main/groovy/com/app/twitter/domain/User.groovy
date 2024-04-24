@@ -8,14 +8,13 @@ import org.springframework.data.mongodb.core.mapping.Document
 class User {
     @Id
     private String id
-    private String password
 
     @Indexed(unique = true)
     private String username
-    private List<String> subscriptions
-    private List<String> subscribers
-    private List<String> posts
-    private List<String> likedPosts
+    private List<String> subscriptions = []
+    private List<String> subscribers = []
+    private List<String> posts = []
+    private List<String> likedPosts = []
 
     String getId() {
         id
@@ -23,14 +22,6 @@ class User {
 
     void setId(String id) {
         this.id = id
-    }
-
-    String getPassword() {
-        password
-    }
-
-    void setPassword(String password) {
-        this.password = password
     }
 
     String getUsername() {

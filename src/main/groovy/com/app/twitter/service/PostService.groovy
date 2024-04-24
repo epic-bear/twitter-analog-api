@@ -13,7 +13,7 @@ interface PostService {
 
     void deletePostById(String id);
 
-    void toggleLikePost(String id, String userId);
+    void toggleLikeForPost(String id, String userId);
 
     void addComment(Comment comment);
 

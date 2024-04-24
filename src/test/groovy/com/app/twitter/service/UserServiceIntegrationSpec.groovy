@@ -31,7 +31,7 @@ class UserServiceIntegrationSpec extends Specification {
     User user
 
     def setup() {
-        user = new User(username: "test", password: "testPassword")
+        user = new User(username: "test")
     }
 
     def "should create a user"() {
@@ -43,7 +43,6 @@ class UserServiceIntegrationSpec extends Specification {
 
         then:
         createdUser.username == "test"
-        createdUser.password == "testPassword"
 
         cleanup:
         userService.deleteUserById(createdUser.id)
@@ -56,12 +55,10 @@ class UserServiceIntegrationSpec extends Specification {
 
         when:
         createdUser.username = "updatedUsername"
-        createdUser.password = "updatedPassword"
         User updatedUser = userService.updateUser(createdUser.id, createdUser)
 
         then:
         updatedUser.username == "updatedUsername"
-        updatedUser.password == "updatedPassword"
 
         cleanup:
         userService.deleteUserById(createdUser.id)
@@ -100,7 +97,7 @@ class UserServiceIntegrationSpec extends Specification {
     def "should subscribe user"() {
         given:
         setup()
-        User user2 = new User(username: "user2", password: "password2")
+        User user2 = new User(username: "user2")
         user = userRepository.save(user)
         user2 = userRepository.save(user2)
 
@@ -122,7 +119,7 @@ class UserServiceIntegrationSpec extends Specification {
         setup()
         user.id = "user1"
         user.subscriptions = ["user2"]
-        User user2 = new User(id: "user2", username: "user2", password: "password2")
+        User user2 = new User(id: "user2", username: "user2")
         user2.subscribers = ["user1"]
         user = userRepository.save(user)
         user2 = userRepository.save(user2)
@@ -149,7 +146,6 @@ class UserServiceIntegrationSpec extends Specification {
         user.subscriptions = ["user2"]
         userRepository.save(new User(id: "user2",
                 username: "user2",
-                password: "password2",
                 likedPosts: ["post1"],
                 posts: ["post2"]))
         postRepository.save(new Post(id: "post1",

@@ -32,19 +32,13 @@ class UserServiceImpl implements UserService {
 
     @Override
     User getUserById(String id) {
-        Optional<User> optionalUser = userRepository.findById(id)
-        if (optionalUser.isPresent()) {
-            optionalUser.get()
-        } else {
-            throw new Exception('User not found')
-        }
+        userRepository.findById(id).orElseThrow()
     }
 
     @Override
     User updateUser(String id, User updatedUser) {
         User user = getUserById(id)
         user.username = updatedUser.username ?: user.username
-        user.password = updatedUser.password ?: user.password
         user.posts = updatedUser.posts != null ? updatedUser.posts : user.posts
         user.likedPosts = updatedUser.likedPosts != null ? updatedUser.likedPosts : user.likedPosts
         user.subscribers = updatedUser.subscribers != null ? updatedUser.subscribers : user.subscribers
@@ -90,9 +84,6 @@ class UserServiceImpl implements UserService {
     @Override
     void addPost(Post post) {
         User user = getUserById(post.authorId)
-        if (!user.posts) {
-            user.posts = []
-        }
         user.posts.add(post.id)
         updateUser(user.id, user)
     }

@@ -46,7 +46,7 @@ class PostController {
 
     @PutMapping(POST_PATH_LIKE_TOGGLE)
     ResponseEntity toggleLikePost(@PathVariable String id, @PathVariable String userId) {
-        postService.toggleLikePost(id, userId)
+        postService.toggleLikeForPost(id, userId)
         new ResponseEntity<>(HttpStatus.OK)
     }
 

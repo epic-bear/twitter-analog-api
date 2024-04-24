@@ -31,7 +31,7 @@ class PostServiceIntegrationSpec extends Specification {
     Post post
 
     def setup() {
-        user = new User(id: "testUser", username: "testUser", password: "testPassword")
+        user = new User(id: "testUser", username: "testUser")
         post = new Post(id: "testPost", content: "test post", authorId: user.id)
     }
 
@@ -122,7 +122,7 @@ class PostServiceIntegrationSpec extends Specification {
         Post savedPost = postRepository.save(post)
 
         when:
-        postService.toggleLikePost(savedPost.id, user.id)
+        postService.toggleLikeForPost(savedPost.id, user.id)
         Post updatedPost = postRepository.findById(savedPost.id).orElse(null)
         User updatedUser = userRepository.findById(user.id).orElse(null)
 
@@ -145,7 +145,7 @@ class PostServiceIntegrationSpec extends Specification {
         Post savedPost = postRepository.save(post)
 
         when:
-        postService.toggleLikePost(savedPost.id, user.id)
+        postService.toggleLikeForPost(savedPost.id, user.id)
         Post updatedPost = postRepository.findById(savedPost.id).orElse(null)
         User updatedUser = userRepository.findById(user.id).orElse(null)
 
@@ -195,18 +195,18 @@ class PostServiceIntegrationSpec extends Specification {
         user = userRepository.save(user)
         Post savedPost = postRepository.save(post)
 
-        def users = (1..4).collect { new User(id: "user$it", username: "user$it", password: "password$it") }
+        def users = (1..4).collect { new User(id: "user$it", username: "user$it") }
         userRepository.saveAll(users)
 
         when:
         //4 users liked post
         users.each { user ->
-            postService.toggleLikePost(savedPost.id, user.id)
+            postService.toggleLikeForPost(savedPost.id, user.id)
         }
 
         //2 users unliked post
         users.take(2).each { user ->
-            postService.toggleLikePost(savedPost.id, user.id)
+            postService.toggleLikeForPost(savedPost.id, user.id)
         }
 
         Post updatedPost = postRepository.findById(savedPost.id).orElse(null)
