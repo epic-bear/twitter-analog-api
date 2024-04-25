@@ -6,19 +6,17 @@ import com.app.twitter.dto.UserDTO
 
 interface UserService {
 
-    User createUser(User user);
+    User createUser(User user)
 
-    User getUserById(String id);
+    User getUserById(String id)
 
-    User updateUser(String id, User updatedUser);
+    User updateUser(String id, User updatedUser)
 
-    void deleteUserById(String id);
+    void deleteUserById(String id)
 
-    void toggleSubscription(String userId, String targetUserId);
+    void toggleSubscription(String userId, String targetUserId)
 
-    void addPost(Post post);
+    void addPost(Post post)
 
-    UserDTO getUserFeed(String userId);
-
-    List<User> getAllUsersWhoLikedPost(String postId)
+    UserDTO getUserFeed(String userId)
 }

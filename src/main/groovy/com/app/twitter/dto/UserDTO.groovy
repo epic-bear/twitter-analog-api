@@ -1,15 +1,15 @@
 package com.app.twitter.dto
 
 class UserDTO {
-    private String ownerId
+    private String userId
     private List<FeedDTO> feed = []
 
     String getOwnerId() {
-        ownerId
+        userId
     }
 
     void setOwnerId(String ownerId) {
-        this.ownerId = ownerId
+        this.userId = ownerId
     }
 
     List<FeedDTO> getFeed() {

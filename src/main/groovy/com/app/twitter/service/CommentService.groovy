@@ -4,9 +4,9 @@ import com.app.twitter.domain.Comment
 
 interface CommentService {
 
-    Comment createComment(Comment comment);
+    Comment createComment(Comment comment)
 
-    List<Comment> getCommentsByPostId(String postId);
+    List<Comment> getCommentsByPostId(String postId)
 
-    void deleteAllById(List<String> comments);
+    void deleteAllById(List<String> comments)
 }

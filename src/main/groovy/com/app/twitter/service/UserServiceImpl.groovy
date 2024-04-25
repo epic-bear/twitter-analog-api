@@ -55,7 +55,7 @@ class UserServiceImpl implements UserService {
     @Override
     void toggleSubscription(String userId, String targetUserId) {
         User user = getUserById(userId)
-        if (user.subscriptions && user.subscriptions.contains(targetUserId)) {
+        if (user.subscriptions.contains(targetUserId)) {
             user.subscriptions.remove(targetUserId)
         } else {
             user.subscriptions.add(targetUserId)
@@ -82,12 +82,7 @@ class UserServiceImpl implements UserService {
                 feed << fetchPostData(postId)
             }
         }
-        new UserDTO(ownerId: user.getId(), feed: feed)
-    }
-
-    @Override
-    List<User> getAllUsersWhoLikedPost(String postId) {
-        return userRepository.findAllUsersByLikedPost(postId)
+        new UserDTO(userId: user.getId(), feed: feed)
     }
 
     private FeedDTO fetchPostData(String postId) {

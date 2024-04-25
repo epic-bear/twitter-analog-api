@@ -5,19 +5,19 @@ import com.app.twitter.domain.Post
 
 interface PostService {
 
-    Post createPost(Post post);
+    Post createPost(Post post)
 
-    Post getPostById(String id);
+    Post getPostById(String id)
 
-    Post updatePost(String id, Post updatedPost);
+    Post updatePost(String id, Post updatedPost)
 
-    void deletePostById(String id);
+    void deletePostById(String id)
 
-    void toggleLikeForPost(String id, String userId);
+    void toggleLikeForPost(String id, String userId)
 
-    void addComment(Comment comment);
+    void addComment(Comment comment)
 
-    List<Comment> getComments(String postId);
+    List<Comment> getComments(String postId)
 
     void deleteAllById(List<String> postIds)
 }

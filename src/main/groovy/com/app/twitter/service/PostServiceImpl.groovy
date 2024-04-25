@@ -56,16 +56,13 @@ class PostServiceImpl implements PostService {
 
     @Override
     void toggleLikeForPost(String postId, String userId) {
-        Post post = getPostById(postId);
-        User user = userService.getUserById(userId);
-
+        Post post = getPostById(postId)
         if (post.likes.contains(userId)) {
-            post.likes.remove(userId);
+            post.likes.remove(userId)
         } else {
-            post.likes.add(userId);
+            post.likes.add(userId)
         }
-        updatePost(postId, post);
-        userService.updateUser(userId, user);
+        postRepository.save(post)
     }
 
     @Override
