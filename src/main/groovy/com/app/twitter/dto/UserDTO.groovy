@@ -4,11 +4,11 @@ class UserDTO {
     private String userId
     private List<FeedDTO> feed = []
 
-    String getOwnerId() {
+    String getUserId() {
         userId
     }
 
-    void setOwnerId(String ownerId) {
+    void setUserId(String ownerId) {
         this.userId = ownerId
     }
 

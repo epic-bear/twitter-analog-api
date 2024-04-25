@@ -159,7 +159,7 @@ class UserServiceIntegrationSpec extends Specification {
         UserDTO userFeed = userService.getUserFeed(user.id)
 
         then:
-        userFeed.ownerId == user.id
+        userFeed.userId == user.id
         userFeed.feed.size() == 2
         userFeed.feed[0].postId == "post1"
         userFeed.feed[0].content == "Post 1"
