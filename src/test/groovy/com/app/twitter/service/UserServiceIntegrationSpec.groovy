@@ -69,12 +69,9 @@ class UserServiceIntegrationSpec extends Specification {
         setup()
         user.id = "testUser"
         user.posts = ["post1", "post2"]
-        user.subscribers = ["subscriber"]
         User createdUser = userRepository.save(user)
         postRepository.save(new Post(id: "post1", content: "Post 1", authorId: user.id))
         postRepository.save(new Post(id: "post2", content: "Post 2", authorId: user.id))
-        User subscriber = new User(id: "subscriber", subscriptions: [createdUser.id])
-        userRepository.save(subscriber)
 
         when:
         userService.deleteUserById(createdUser.id)
@@ -85,9 +82,6 @@ class UserServiceIntegrationSpec extends Specification {
         and:
         !postRepository.existsById('post1')
         !postRepository.existsById('post2')
-
-        and:
-        userService.getUserById("subscriber").subscriptions == []
 
         cleanup:
         userRepository.deleteAll()
@@ -106,9 +100,7 @@ class UserServiceIntegrationSpec extends Specification {
 
         then:
         User updatedUser1 = userRepository.findById(user.id).orElse(null)
-        User updatedUser2 = userRepository.findById(user2.id).orElse(null)
         updatedUser1.subscriptions.contains(user2.id)
-        updatedUser2.subscribers.contains(user.id)
 
         cleanup:
         userRepository.deleteAll()
@@ -120,7 +112,6 @@ class UserServiceIntegrationSpec extends Specification {
         user.id = "user1"
         user.subscriptions = ["user2"]
         User user2 = new User(id: "user2", username: "user2")
-        user2.subscribers = ["user1"]
         user = userRepository.save(user)
         user2 = userRepository.save(user2)
 
@@ -129,9 +120,7 @@ class UserServiceIntegrationSpec extends Specification {
 
         then:
         User updatedUser1 = userRepository.findById(user.id).orElse(null)
-        User updatedUser2 = userRepository.findById(user2.id).orElse(null)
         !updatedUser1.subscriptions.contains(user2.id)
-        !updatedUser2.subscribers.contains(user.id)
 
         cleanup:
         userRepository.deleteAll()
@@ -141,12 +130,10 @@ class UserServiceIntegrationSpec extends Specification {
         given:
         setup()
         user.id = "user1"
-        user.likedPosts = ["post2"]
         user.posts = ["post1"]
         user.subscriptions = ["user2"]
         userRepository.save(new User(id: "user2",
                 username: "user2",
-                likedPosts: ["post1"],
                 posts: ["post2"]))
         postRepository.save(new Post(id: "post1",
                 content: "Post 1",

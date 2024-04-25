@@ -40,8 +40,6 @@ class UserServiceImpl implements UserService {
         User user = getUserById(id)
         user.username = updatedUser.username ?: user.username
         user.posts = updatedUser.posts != null ? updatedUser.posts : user.posts
-        user.likedPosts = updatedUser.likedPosts != null ? updatedUser.likedPosts : user.likedPosts
-        user.subscribers = updatedUser.subscribers != null ? updatedUser.subscribers : user.subscribers
         user.subscriptions = updatedUser.subscriptions != null ? updatedUser.subscriptions : user.subscriptions
         userRepository.save(user)
     }
@@ -51,34 +49,18 @@ class UserServiceImpl implements UserService {
         User user = getUserById(userId)
         List<String> postIds = user.posts
         postService.deleteAllById(postIds)
-        List<String> subscribers = user.subscribers
-        subscribers.each { subscriberId ->
-            User subscriber = getUserById(subscriberId)
-            subscriber.subscriptions.remove(userId);
-            userRepository.save(subscriber)
-        }
         userRepository.deleteById(userId)
     }
 
     @Override
     void toggleSubscription(String userId, String targetUserId) {
         User user = getUserById(userId)
-        User targetUser = getUserById(targetUserId)
         if (user.subscriptions && user.subscriptions.contains(targetUserId)) {
             user.subscriptions.remove(targetUserId)
-            targetUser.subscribers.remove(userId)
         } else {
-            if (!user.subscriptions) {
-                user.subscriptions = []
-            }
             user.subscriptions.add(targetUserId)
-            if (!targetUser.subscribers) {
-                targetUser.subscribers = []
-            }
-            targetUser.subscribers.add(userId)
         }
         updateUser(userId, user)
-        updateUser(targetUserId, targetUser)
     }
 
     @Override
@@ -94,9 +76,9 @@ class UserServiceImpl implements UserService {
         List<FeedDTO> feed = user.getPosts().collect { postId ->
             fetchPostData(postId)
         }
-        user.getSubscriptions().each { subscribedUserId ->
-            User subscribedUser = getUserById(subscribedUserId)
-            subscribedUser.getPosts().each { postId ->
+        user.getSubscriptions().each { subscriptionUserId ->
+            User subscriptionUser = getUserById(subscriptionUserId)
+            subscriptionUser.getPosts().each { postId ->
                 feed << fetchPostData(postId)
             }
         }

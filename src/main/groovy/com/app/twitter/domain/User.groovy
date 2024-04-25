@@ -12,9 +12,7 @@ class User {
     @Indexed(unique = true)
     private String username
     private List<String> subscriptions = []
-    private List<String> subscribers = []
     private List<String> posts = []
-    private List<String> likedPosts = []
 
     String getId() {
         id
@@ -40,27 +38,11 @@ class User {
         this.subscriptions = subscriptions
     }
 
-    List<String> getSubscribers() {
-        subscribers
-    }
-
-    void setSubscribers(List<String> subscribers) {
-        this.subscribers = subscribers
-    }
-
     List<String> getPosts() {
-        return posts
+        posts
     }
 
     void setPosts(List<String> posts) {
         this.posts = posts
-    }
-
-    List<String> getLikedPosts() {
-        return likedPosts
-    }
-
-    void setLikedPosts(List<String> likedPosts) {
-        this.likedPosts = likedPosts
     }
 }

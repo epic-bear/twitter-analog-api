@@ -48,13 +48,6 @@ class PostServiceImpl implements PostService {
         User author = userService.getUserById(post.authorId)
         author.posts.remove(postId)
         userService.updateUser(author.id, author)
-        if (post.likes) {
-            List<User> usersWhoLiked = userService.getAllUsersWhoLikedPost(postId)
-            usersWhoLiked.each { user ->
-                user.likedPosts.remove(postId)
-                userService.updateUser(user.id, user)
-            }
-        }
         if (post.comments) {
             commentService.deleteAllById(post.comments)
         }
@@ -71,13 +64,6 @@ class PostServiceImpl implements PostService {
         } else {
             post.likes.add(userId);
         }
-
-        if (user.likedPosts != null && user.likedPosts.contains(postId)) {
-            user.likedPosts.remove(postId);
-        } else {
-            user.likedPosts.add(postId);
-        }
-
         updatePost(postId, post);
         userService.updateUser(userId, user);
     }
@@ -86,7 +72,7 @@ class PostServiceImpl implements PostService {
     void addComment(Comment comment) {
         Post post = getPostById(comment.postId)
         post.comments.add(comment.id)
-        updatePost(post.id, post)
+        postRepository.save(post)
     }
 
     @Override

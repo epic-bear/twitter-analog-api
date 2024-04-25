@@ -89,7 +89,6 @@ class PostServiceIntegrationSpec extends Specification {
                 authorId: "testUser"))
         post.likes = [user.id]
         post.comments = [comment.id]
-        user.likedPosts = [post.id]
         userRepository.save(user)
 
         Post savedPost = postService.createPost(post)
@@ -104,7 +103,6 @@ class PostServiceIntegrationSpec extends Specification {
         and:
         User updatedUser = userRepository.findById("testUser").orElse(null)
         updatedUser.posts.isEmpty()
-        updatedUser.likedPosts.isEmpty()
 
         and:
         !commentRepository.existsById(comment.id)
@@ -124,12 +122,10 @@ class PostServiceIntegrationSpec extends Specification {
         when:
         postService.toggleLikeForPost(savedPost.id, user.id)
         Post updatedPost = postRepository.findById(savedPost.id).orElse(null)
-        User updatedUser = userRepository.findById(user.id).orElse(null)
 
         then:
         updatedPost != null
         updatedPost.likes == [user.id]
-        updatedUser.likedPosts == [updatedPost.id]
 
         cleanup:
         postRepository.deleteAll()
@@ -139,7 +135,6 @@ class PostServiceIntegrationSpec extends Specification {
     def "should unlike post"() {
         given:
         setup()
-        user.likedPosts = [post.id]
         user = userRepository.save(user)
         post.likes = ["testUser"]
         Post savedPost = postRepository.save(post)
@@ -147,12 +142,10 @@ class PostServiceIntegrationSpec extends Specification {
         when:
         postService.toggleLikeForPost(savedPost.id, user.id)
         Post updatedPost = postRepository.findById(savedPost.id).orElse(null)
-        User updatedUser = userRepository.findById(user.id).orElse(null)
 
         then:
         updatedPost != null
         updatedPost.likes == []
-        updatedUser.likedPosts == []
 
         cleanup:
         postRepository.deleteAll()

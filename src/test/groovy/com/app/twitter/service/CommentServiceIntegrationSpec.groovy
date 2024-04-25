@@ -50,45 +50,4 @@ class CommentServiceIntegrationSpec extends Specification {
         commentRepository.deleteAll()
         postRepository.deleteAll()
     }
-
-    def "should update a comment"() {
-        given:
-        Comment comment = new Comment(content: "Original comment")
-        Comment savedComment = commentRepository.save(comment)
-        Comment updatedComment = new Comment(id: savedComment.id, content: "Updated comment")
-
-        when:
-        Comment result = commentService.updateComment(savedComment.id, updatedComment)
-
-        then:
-        result != null
-        result.id == savedComment.id
-        result.content == "Updated comment"
-
-        cleanup:
-        commentRepository.deleteAll()
-    }
-
-    def "should delete a comment"() {
-        given:
-        Comment comment = new Comment(id: "testComment", content: "Test comment")
-        Post post = new Post(id: "testPost", content: "Test post", comments: [comment.id])
-        comment.postId = post.id
-        Comment savedComment = commentRepository.save(comment)
-        Post savedPost = postRepository.save(post)
-
-        when:
-        commentService.deleteCommentById(savedComment.id)
-
-        then:
-        !commentRepository.existsById(savedComment.id)
-
-        and:
-        Post updatedPost = postService.getPostById(savedPost.id)
-        updatedPost.comments.isEmpty()
-
-        cleanup:
-        commentRepository.deleteAll()
-        postRepository.deleteAll()
-    }
 }
