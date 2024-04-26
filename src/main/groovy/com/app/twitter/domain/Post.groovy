@@ -3,11 +3,18 @@ package com.app.twitter.domain
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
+
 @Document(collection = "posts")
 class Post {
     @Id
     private String id
+
+    @NotBlank(message = "Post should not be blank")
     private String content
+
+    @NotNull
     private String authorId
     private List<String> comments = []
     private List<String> likes = []

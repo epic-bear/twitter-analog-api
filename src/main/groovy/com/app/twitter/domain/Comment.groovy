@@ -3,12 +3,21 @@ package com.app.twitter.domain
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
+
 @Document(collection = "comments")
 class Comment {
     @Id
     private String id
+
+    @NotBlank(message = "Comment should not be blank")
     private String content
+
+    @NotNull
     private String authorId
+
+    @NotNull
     private String postId
 
     String getId() {

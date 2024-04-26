@@ -5,6 +5,7 @@ import com.app.twitter.domain.Post
 import com.app.twitter.domain.User
 import com.app.twitter.dto.FeedDTO
 import com.app.twitter.dto.UserDTO
+import com.app.twitter.exception.UsernameExistsException
 import com.app.twitter.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -25,7 +26,7 @@ class UserServiceImpl implements UserService {
     @Override
     User createUser(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new Exception("Username ${user.getUsername()} already exists")
+            throw new UsernameExistsException("Username ${user.getUsername()} already exists")
         }
         userRepository.save(user)
     }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
+import javax.validation.Valid
+
 @RestController
 class UserController {
     public static final String USER_PATH = '/api/user'
@@ -29,12 +31,12 @@ class UserController {
     }
 
     @PostMapping(USER_PATH)
-    User createUser(@RequestBody User user) {
+    User createUser(@RequestBody @Valid User user) {
         userService.createUser(user)
     }
 
     @PutMapping(USER_PATH_ID)
-    User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+    User updateUser(@PathVariable String id, @RequestBody @Valid User updatedUser) {
         userService.updateUser(id, updatedUser)
     }
 

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
+import javax.validation.Valid
+
 @RestController
 class PostController {
     private static final String POST_PATH = '/api/post'
@@ -29,12 +31,12 @@ class PostController {
     }
 
     @PostMapping(POST_PATH)
-    Post createPost(@RequestBody Post post) {
+    Post createPost(@RequestBody @Valid Post post) {
         postService.createPost(post)
     }
 
     @PutMapping(POST_PATH_ID)
-    Post updatePost(@PathVariable String id, @RequestBody Post updatedPost) {
+    Post updatePost(@PathVariable String id, @RequestBody @Valid Post updatedPost) {
         postService.updatePost(id, updatedPost)
     }
 

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
+import javax.validation.Valid
+
 @RestController
 class CommentController {
     private static final String COMMENT_PATH = '/api/comment'
@@ -17,7 +19,7 @@ class CommentController {
     }
 
     @PostMapping(COMMENT_PATH)
-    Comment createComment(@RequestBody Comment comment) {
+    Comment createComment(@RequestBody @Valid Comment comment) {
         commentService.createComment(comment)
     }
 }

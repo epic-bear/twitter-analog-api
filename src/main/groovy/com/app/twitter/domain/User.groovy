@@ -4,12 +4,15 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
+import javax.validation.constraints.NotBlank
+
 @Document(collection = "users")
 class User {
     @Id
     private String id
 
     @Indexed(unique = true)
+    @NotBlank(message = "Username should not be blank")
     private String username
     private List<String> subscriptions = []
     private List<String> posts = []
