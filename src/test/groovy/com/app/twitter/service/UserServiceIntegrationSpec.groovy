@@ -55,7 +55,7 @@ class UserServiceIntegrationSpec extends Specification {
 
         when:
         createdUser.username = "updatedUsername"
-        User updatedUser = userService.updateUser(createdUser.id, createdUser)
+        User updatedUser = userService.updateUser(createdUser)
 
         then:
         updatedUser.username == "updatedUsername"

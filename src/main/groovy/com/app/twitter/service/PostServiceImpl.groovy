@@ -49,7 +49,7 @@ class PostServiceImpl implements PostService {
         Post post = getPostById(postId)
         User author = userService.getUserById(post.authorId)
         author.posts.remove(postId)
-        userService.updateUser(author.id, author)
+        userService.updateUser(author)
         if (post.comments) {
             commentService.deleteAllById(post.comments)
         }

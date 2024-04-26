@@ -35,9 +35,9 @@ class UserController {
         userService.createUser(user)
     }
 
-    @PutMapping(USER_PATH_ID)
-    User updateUser(@PathVariable String id, @RequestBody @Valid User updatedUser) {
-        userService.updateUser(id, updatedUser)
+    @PutMapping(USER_PATH)
+    User updateUser(@RequestBody @Valid User user) {
+        userService.updateUser(user)
     }
 
     @DeleteMapping(USER_PATH_ID)

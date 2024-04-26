@@ -39,8 +39,8 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    User updateUser(String id, User updatedUser) {
-        User user = getUserById(id)
+    User updateUser(User updatedUser) {
+        User user = getUserById(updatedUser.id)
         user.username = updatedUser.username ?: user.username
         user.posts = updatedUser.posts != null ? updatedUser.posts : user.posts
         user.subscriptions = updatedUser.subscriptions != null ? updatedUser.subscriptions : user.subscriptions
@@ -63,14 +63,14 @@ class UserServiceImpl implements UserService {
         } else {
             user.subscriptions.add(targetUserId)
         }
-        updateUser(userId, user)
+        updateUser(user)
     }
 
     @Override
     void addPost(Post post) {
         User user = getUserById(post.authorId)
         user.posts.add(post.id)
-        updateUser(user.id, user)
+        updateUser(user)
     }
 
     @Override
