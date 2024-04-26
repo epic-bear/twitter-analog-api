@@ -32,7 +32,7 @@ class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    void deleteAllById(List<String> comments) {
-        commentRepository.deleteAllById(comments)
+    void deleteAllByPostId(String postId) {
+        commentRepository.deleteAllByPostId(postId)
     }
 }

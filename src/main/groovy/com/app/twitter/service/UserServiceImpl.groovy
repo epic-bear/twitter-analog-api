@@ -49,9 +49,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     void deleteUserById(String userId) {
-        User user = getUserById(userId)
-        List<String> postIds = user.posts
-        postService.deleteAllById(postIds)
+        postService.deleteAllUsersPosts(getUserById(userId))
         userRepository.deleteById(userId)
     }
 

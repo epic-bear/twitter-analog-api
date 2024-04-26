@@ -5,4 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface CommentRepository extends MongoRepository<Comment, String> {
     List<Comment> findAllByPostId(String postId)
+
+    void deleteAllByPostId(String postId)
 }

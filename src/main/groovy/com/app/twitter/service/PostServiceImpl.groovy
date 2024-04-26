@@ -48,9 +48,7 @@ class PostServiceImpl implements PostService {
         User author = userService.getUserById(post.authorId)
         author.posts.remove(postId)
         userService.updateUser(author)
-        if (post.comments) {
-            commentService.deleteAllById(post.comments)
-        }
+        deleteCommentsIfExist(post)
         postRepository.deleteById(postId)
     }
 
@@ -78,9 +76,17 @@ class PostServiceImpl implements PostService {
     }
 
     @Override
-    void deleteAllById(List<String> postIds) {
-        postIds.each { postId ->
-            deletePostById(postId)
+    void deleteAllUsersPosts(User user) {
+        user.posts.each { postId ->
+            deleteCommentsIfExist(getPostById(postId))
+        }
+        postRepository.deleteAllByAuthorId(user.id)
+
+    }
+
+    private void deleteCommentsIfExist(Post post) {
+        if (post.comments) {
+            commentService.deleteAllByPostId(post.id)
         }
     }
 }

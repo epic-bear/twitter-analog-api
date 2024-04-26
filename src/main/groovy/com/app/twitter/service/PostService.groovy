@@ -2,6 +2,7 @@ package com.app.twitter.service
 
 import com.app.twitter.domain.Comment
 import com.app.twitter.domain.Post
+import com.app.twitter.domain.User
 
 interface PostService {
 
@@ -19,5 +20,5 @@ interface PostService {
 
     List<Comment> getComments(String postId)
 
-    void deleteAllById(List<String> postIds)
+    void deleteAllUsersPosts(User user)
 }

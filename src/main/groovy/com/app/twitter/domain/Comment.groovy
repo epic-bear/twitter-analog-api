@@ -14,7 +14,6 @@ class Comment {
     @NotBlank(message = "Comment should not be blank")
     private String content
 
-    @NotNull
     private String authorId
 
     @NotNull

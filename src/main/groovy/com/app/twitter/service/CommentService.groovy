@@ -8,5 +8,5 @@ interface CommentService {
 
     List<Comment> getCommentsByPostId(String postId)
 
-    void deleteAllById(List<String> comments)
+    void deleteAllByPostId(String postId)
 }
