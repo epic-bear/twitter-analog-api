@@ -40,10 +40,6 @@ class Comment {
         authorId
     }
 
-    void setAuthor(String authorId) {
-        this.authorId = authorId
-    }
-
     String getPostId() {
         postId
     }
