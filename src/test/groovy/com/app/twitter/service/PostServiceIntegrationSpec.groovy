@@ -67,7 +67,7 @@ class PostServiceIntegrationSpec extends Specification {
                 comments: ["Comment 1", "Comment 2"],
                 likes: [user.id]
         )
-        Post result = postService.updatePost(savedPost.id, updatedPost)
+        Post result = postService.updatePost(updatedPost)
 
         then:
         result != null

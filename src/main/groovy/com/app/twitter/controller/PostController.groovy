@@ -35,9 +35,9 @@ class PostController {
         postService.createPost(post)
     }
 
-    @PutMapping(POST_PATH_ID)
-    Post updatePost(@PathVariable String id, @RequestBody @Valid Post updatedPost) {
-        postService.updatePost(id, updatedPost)
+    @PutMapping(POST_PATH)
+    Post updatePost(@RequestBody @Valid Post post) {
+        postService.updatePost(post)
     }
 
     @DeleteMapping(POST_PATH_ID)

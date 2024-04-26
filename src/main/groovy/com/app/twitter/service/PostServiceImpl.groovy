@@ -7,8 +7,10 @@ import com.app.twitter.repository.PostRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class PostServiceImpl implements PostService {
     private final PostRepository postRepository
     private final UserService userService
@@ -34,8 +36,8 @@ class PostServiceImpl implements PostService {
     }
 
     @Override
-    Post updatePost(String id, Post updatedPost) {
-        Post post = getPostById(id)
+    Post updatePost(Post updatedPost) {
+        Post post = getPostById(updatedPost.id)
         post.content = updatedPost.content ?: post.content
         post.comments = updatedPost.comments != null ? updatedPost.comments : post.comments
         post.likes = updatedPost.likes != null ? updatedPost.likes : post.likes
