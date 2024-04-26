@@ -35,7 +35,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     User getUserById(String id) {
-        userRepository.findById(id).orElseThrow()
+        userRepository.findById(id).orElseThrow(() -> new NoSuchElementException('User not found'))
     }
 
     @Override

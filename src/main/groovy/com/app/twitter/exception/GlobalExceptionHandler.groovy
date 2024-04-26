@@ -24,4 +24,11 @@ class GlobalExceptionHandler {
     String handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         exception.getFieldErrors().get(0).getDefaultMessage()
     }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler
+    @ResponseBody
+    String handleNoSuchElementException(NoSuchElementException exception) {
+        exception.message
+    }
 }

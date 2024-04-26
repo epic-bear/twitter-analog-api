@@ -32,7 +32,7 @@ class PostServiceImpl implements PostService {
 
     @Override
     Post getPostById(String id) {
-       postRepository.findById(id).orElseThrow()
+       postRepository.findById(id).orElseThrow(() -> new NoSuchElementException('Post not found'))
     }
 
     @Override
