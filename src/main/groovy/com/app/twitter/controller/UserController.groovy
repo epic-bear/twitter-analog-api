@@ -17,11 +17,11 @@ import javax.validation.Valid
 
 @RestController
 class UserController {
-    public static final String USER_PATH = '/api/user'
-    public static final String USER_PATH_ID = '/api/user/{id}'
-    public static final String USER_PATH_SUBSCRIPTION = '/api/user/{id}/subscription/{targetUserId}'
-    public static final String USER_PATH_FEED = '/api/user/{id}/feed'
-    public static final String USER_PATH_SUBSCRIPTION_FEED = '/api/user/subscription/{targetUserId}/feed'
+    private static final String USER_PATH = '/api/user'
+    private static final String USER_PATH_ID = '/api/user/{id}'
+    private static final String USER_PATH_SUBSCRIPTION = '/api/user/{id}/subscription/{targetUserId}'
+    private static final String USER_PATH_FEED = '/api/user/{id}/feed'
+    private static final String USER_PATH_SUBSCRIPTION_FEED = '/api/user/subscription/{targetUserId}/feed'
 
     private final UserService userService
 
