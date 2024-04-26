@@ -41,9 +41,9 @@ class UserServiceImpl implements UserService {
     @Override
     User updateUser(User updatedUser) {
         User user = getUserById(updatedUser.id)
-        user.username = updatedUser.username ?: user.username
-        user.posts = updatedUser.posts != null ? updatedUser.posts : user.posts
-        user.subscriptions = updatedUser.subscriptions != null ? updatedUser.subscriptions : user.subscriptions
+        user.username = updatedUser.username
+        user.posts = updatedUser.posts
+        user.subscriptions = updatedUser.subscriptions
         userRepository.save(user)
     }
 

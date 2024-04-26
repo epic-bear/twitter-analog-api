@@ -39,8 +39,6 @@ class PostServiceImpl implements PostService {
     Post updatePost(Post updatedPost) {
         Post post = getPostById(updatedPost.id)
         post.content = updatedPost.content ?: post.content
-        post.comments = updatedPost.comments != null ? updatedPost.comments : post.comments
-        post.likes = updatedPost.likes != null ? updatedPost.likes : post.likes
         postRepository.save(post)
     }
 

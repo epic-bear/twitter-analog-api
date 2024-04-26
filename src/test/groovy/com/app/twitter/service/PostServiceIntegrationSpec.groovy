@@ -63,9 +63,7 @@ class PostServiceIntegrationSpec extends Specification {
         when:
         Post updatedPost = new Post(
                 id: savedPost.id,
-                content: "Updated post content",
-                comments: ["Comment 1", "Comment 2"],
-                likes: [user.id]
+                content: "Updated post content"
         )
         Post result = postService.updatePost(updatedPost)
 
@@ -73,8 +71,6 @@ class PostServiceIntegrationSpec extends Specification {
         result != null
         result.id == savedPost.id
         result.content == "Updated post content"
-        result.comments == ["Comment 1", "Comment 2"]
-        result.likes == [user.id]
 
         cleanup:
         postRepository.deleteAll()
