@@ -74,9 +74,7 @@ class UserServiceImpl implements UserService {
     @Override
     UserDTO getUserFeed(String userId) {
         User user = getUserById(userId)
-        List<FeedDTO> feed = user.getPosts().collect { postId ->
-            fetchPostData(postId)
-        }
+        List<FeedDTO> feed = []
         user.getSubscriptions().each { subscriptionUserId ->
             User subscriptionUser = getUserById(subscriptionUserId)
             subscriptionUser.getPosts().each { postId ->

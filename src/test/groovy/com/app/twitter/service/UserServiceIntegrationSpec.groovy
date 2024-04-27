@@ -130,28 +130,18 @@ class UserServiceIntegrationSpec extends Specification {
         given:
         setup()
         user.id = "user1"
-        user.posts = ["post1"]
         user.subscriptions = ["user2"]
         userRepository.save(new User(id: "user2",
                 username: "user2",
-                posts: ["post2"]))
-        postRepository.save(new Post(id: "post1",
-                content: "Post 1",
-                authorId: "user1",
-                likes: ["user2"],
-                comments: ["comment1"]))
-        postRepository.save(new Post(id: "post2",
-                content: "Post 2",
+                posts: ["post"]))
+        postRepository.save(new Post(id: "post",
+                content: "Post",
                 authorId: "user2",
                 likes: ["user1"],
-                comments: ["comment2"]))
-        commentRepository.save(new Comment(id: "comment1",
-                content: "comment1",
-                postId: "post1",
-                authorId: "user2"))
-        commentRepository.save(new Comment(id: "comment2",
-                content: "comment2",
-                postId: "post2",
+                comments: ["comment"]))
+        commentRepository.save(new Comment(id: "comment",
+                content: "comment",
+                postId: "post",
                 authorId: "user1"))
         user = userRepository.save(user)
 
@@ -160,25 +150,16 @@ class UserServiceIntegrationSpec extends Specification {
 
         then:
         userFeed.userId == user.id
-        userFeed.feed.size() == 2
-        userFeed.feed[0].postId == "post1"
-        userFeed.feed[0].content == "Post 1"
-        userFeed.feed[0].authorId == "user1"
+        userFeed.feed.size() == 1
+        userFeed.feed[0].postId == "post"
+        userFeed.feed[0].content == "Post"
+        userFeed.feed[0].authorId == "user2"
         userFeed.feed[0].comments.size() == 1
-        userFeed.feed[0].comments[0].id == "comment1"
-        userFeed.feed[0].comments[0].content == "comment1"
-        userFeed.feed[0].comments[0].authorId == "user2"
-        userFeed.feed[0].comments[0].postId == "post1"
-        userFeed.feed[0].likes == ["user2"]
-        userFeed.feed[1].postId == "post2"
-        userFeed.feed[1].content == "Post 2"
-        userFeed.feed[1].authorId == "user2"
-        userFeed.feed[1].comments.size() == 1
-        userFeed.feed[1].comments[0].id == "comment2"
-        userFeed.feed[1].comments[0].content == "comment2"
-        userFeed.feed[1].comments[0].authorId == "user1"
-        userFeed.feed[1].comments[0].postId == "post2"
-        userFeed.feed[1].likes == ["user1"]
+        userFeed.feed[0].comments[0].id == "comment"
+        userFeed.feed[0].comments[0].content == "comment"
+        userFeed.feed[0].comments[0].authorId == "user1"
+        userFeed.feed[0].comments[0].postId == "post"
+        userFeed.feed[0].likes == ["user1"]
 
         cleanup:
         userRepository.deleteAll()
